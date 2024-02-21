@@ -10,13 +10,13 @@ const Home = () => {
     const userContextData = useContext(userContext)
     
     useEffect(() => {
-        apiLoggedInInstance({
-            url: '/api/auth/user-info',
-            method: "GET"
-        }).then(response => {
-            setUser(response.data);
-            console.log(response)
-        })
+        // apiLoggedInInstance({
+        //     url: '/api/auth/user-info',
+        //     method: "GET"
+        // }).then(response => {
+        //     setUser(response.data);
+        //     console.log(response)
+        // })
     }, [])
 
   return (

@@ -10,6 +10,9 @@ import NotFound from './pages/404';
 import NganhNghe from './pages/danh-muc/nganh-nghe/demo';
 import { UserProvider } from './contexts/userContext';
 import QuanTriThanhVien from './pages/quan-tri-thanh-vien';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
     <UserProvider>
@@ -28,6 +31,7 @@ function App() {
               
             </Routes>
           </BrowserRouter>
+          <ToastContainer />
     </UserProvider>
     
   );

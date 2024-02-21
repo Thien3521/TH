@@ -11,11 +11,11 @@ export const UserProvider = ({children}) => {
     }
 
     useEffect(() => {
-        apiLoggedInInstance({
-            url: '/api/auth/user-info'
-        }).then(response => {
-            setUser(response.data);
-        })
+        // apiLoggedInInstance({
+        //     url: '/api/auth/user-info'
+        // }).then(response => {
+        //     setUser(response.data);
+        // })
     }, [])
 
     return (
