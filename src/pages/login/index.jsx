@@ -28,7 +28,7 @@ const Login = () => {
 
         const { token, userId } = responseData;
         localStorage.setItem("token", token);
-        localStorage.setItem("userId", userId);
+        // localStorage.setItem("userId", userId);
         navigate("/");
         toast.success("Đăng nhập thành công!");
       } else {
