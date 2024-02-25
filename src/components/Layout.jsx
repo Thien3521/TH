@@ -26,6 +26,10 @@ const Layout = () => {
           path: "/nganh-nghe",
           name: "Ngành nghề",
         },
+        {
+          path: "/khoa",
+          name: "Khóa",
+        },
       ],
     },
   ];

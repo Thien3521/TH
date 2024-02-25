@@ -147,6 +147,7 @@ const NganhNghe = () => {
       render: (text, record) => (
         <span>
           <Popover
+            placement="right"
             content={
               <div>
                 <Button
