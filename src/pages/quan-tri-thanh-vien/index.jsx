@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { apiLoggedInInstance } from "../../utils/api";
-import { DemoModal } from "../../components/Modal1";
+import Modal from "../../components/Modal";
 import { USER_TYPE } from "../../constants/userType";
 import { Formik } from "formik";
 import { Table, Input, Button } from "antd";
@@ -176,7 +176,7 @@ const QuanTriThanhVien = () => {
         />
       </div>
       {showModal && (
-        <DemoModal
+        <Modal
           title="Thêm thành viên"
           onClose={() => {
             onCloseModalCreate();
@@ -532,7 +532,7 @@ const QuanTriThanhVien = () => {
               </Formik>
             </div>
           )}
-        </DemoModal>
+        </Modal>
       )}
     </div>
   );

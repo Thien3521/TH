@@ -8,7 +8,7 @@ import {
   SearchOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
-import { DemoModal } from "../../../components/Modal1";
+import Modal from "../../../components/Modal";
 import KhoaForm from "./form";
 import FormDelete from "../../../components/FormDelete";
 
@@ -244,7 +244,7 @@ const KhoaContainer = () => {
         <Table dataSource={filteredData} columns={columns} />
       </div>
       {showModalCreate && (
-        <DemoModal
+        <Modal
           title="Thêm Khóa"
           onClose={() => {
             onCloseModalCreate();
@@ -252,11 +252,11 @@ const KhoaContainer = () => {
         >
           <hr />
           <KhoaForm onCancel={handleCancel} onFinish={handleCreate} />
-        </DemoModal>
+        </Modal>
       )}
 
       {showModalUpdate && (
-        <DemoModal
+        <Modal
           title="Chỉnh sửa khóa"
           onClose={() => {
             onCloseModalUpdate();
@@ -268,11 +268,11 @@ const KhoaContainer = () => {
             onCancel={handleCancel}
             onFinish={handleUpdate}
           />
-        </DemoModal>
+        </Modal>
       )}
 
       {showModalDelete && (
-        <DemoModal
+        <Modal
           title="Xóa khóa"
           onClose={() => {
             onCloseModalUpdate();
@@ -280,7 +280,7 @@ const KhoaContainer = () => {
         >
           <hr />
           <FormDelete onOK={handleDelete} onCancel={handleCancel} />
-        </DemoModal>
+        </Modal>
       )}
     </>
   );

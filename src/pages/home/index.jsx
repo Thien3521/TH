@@ -6,7 +6,7 @@ const Home = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
-  const { setUser, user, handleLogout } = useContext(userContext);
+  const { setUser, user } = useContext(userContext);
 
   useEffect(() => {
     if (!token) {
@@ -34,8 +34,7 @@ const Home = () => {
       >
         username: {user?.username}
       </button>
-      <button onClick={() => handleLogout}>DDawng xuat</button>
-      <div>{token ? "Da dang nhap" : "Chua dang nhap"}</div>
+      <div>{token ? "Đã đăng nhập" : "Chưa đăng nhập"}</div>
     </div>
   );
 };
