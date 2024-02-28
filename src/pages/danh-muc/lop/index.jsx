@@ -9,17 +9,17 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import Modal from "../../../components/Modal";
-import NganhNgheForm from "./form";
+import LopForm from "./form";
 import FormDelete from "../../../components/FormDelete";
 
-const NganhNgheContainer = () => {
+const Lop = () => {
   const [data, setData] = useState();
   const [filteredData, setFilteredData] = useState();
   const [showModalCreate, setShowModalCreate] = useState(false);
   const [showModalUpdate, setShowModalUpdate] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);
-
   const [record, setRecord] = useState();
+  const [courses, setCourses] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -28,7 +28,7 @@ const NganhNgheContainer = () => {
   const fetchData = async () => {
     try {
       const response = await apiLoggedInInstance({
-        url: "/api/field",
+        url: "/api/class",
         method: "GET",
       });
       setData(response.data);
@@ -37,6 +37,23 @@ const NganhNgheContainer = () => {
       console.error("Error fetching data:", error);
     }
   };
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await apiLoggedInInstance({
+          url: "/api/course",
+          method: "GET",
+        });
+        setCourses(response.data);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+  // console.log(courses);
 
   const handleSearch = (value, dataIndex) => {
     const filtered = data.filter((record) =>
@@ -59,13 +76,13 @@ const NganhNgheContainer = () => {
   const handleUpdate = async (values) => {
     const { name } = values;
     await apiLoggedInInstance({
-      url: `/api/field/${record.id}`,
+      url: `/api/class/${record.id}`,
       method: "PUT",
       params: {
         name,
       },
     });
-
+    // console.log();
     setShowModalUpdate(false);
     fetchData();
   };
@@ -73,7 +90,7 @@ const NganhNgheContainer = () => {
   const handleCreate = async (values) => {
     const { name } = values;
     await apiLoggedInInstance({
-      url: `/api/field`,
+      url: `/api/class`,
       method: "POST",
       params: {
         name,
@@ -86,7 +103,7 @@ const NganhNgheContainer = () => {
 
   const handleDelete = async () => {
     await apiLoggedInInstance({
-      url: `/api/field/${record.id}`,
+      url: `/api/class/${record.id}`,
       method: "DELETE",
     });
 
@@ -142,7 +159,7 @@ const NganhNgheContainer = () => {
       ),
     },
     {
-      title: "Mã ngành nghề",
+      title: "Tên lớp",
       dataIndex: "name",
       key: "name",
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
@@ -183,9 +200,13 @@ const NganhNgheContainer = () => {
         record.name.toString().toLowerCase().includes(value.toLowerCase()),
     },
     {
-      title: "Tên ngành nghề",
-      dataIndex: "name",
-      key: "name",
+      title: "Tên khoá",
+      dataIndex: "courseId",
+      key: "courseId",
+      render: (text, record) => {
+        const course = courses.find((course) => course.id === record.courseId);
+        return course ? course.name : "-";
+      },
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
         <div style={{ padding: 8 }}>
           <Input
@@ -226,7 +247,7 @@ const NganhNgheContainer = () => {
   return (
     <>
       <div className="w-full flex justify-between items-center py-3 px-10 shadow-md">
-        <h2>Ngành nghề ({data?.length || 0})</h2>
+        <h2>Lớp ({data?.length || 0})</h2>
 
         <Button
           type="default"
@@ -236,7 +257,7 @@ const NganhNgheContainer = () => {
           className="flex items-center"
         >
           <PlusOutlined />
-          Thêm ngành nghề
+          Thêm lớp
         </Button>
       </div>
       <div className="p-5">
@@ -244,25 +265,25 @@ const NganhNgheContainer = () => {
       </div>
       {showModalCreate && (
         <Modal
-          title="Thêm ngành nghề"
+          title="Thêm lớp"
           onClose={() => {
             onCloseModalCreate();
           }}
         >
           <hr />
-          <NganhNgheForm onCancel={handleCancel} onFinish={handleCreate} />
+          <LopForm onCancel={handleCancel} onFinish={handleCreate} />
         </Modal>
       )}
 
       {showModalUpdate && (
         <Modal
-          title="Chỉnh sửa ngành nghề"
+          title="Chỉnh sửa lớp"
           onClose={() => {
             onCloseModalUpdate();
           }}
         >
           <hr />
-          <NganhNgheForm
+          <LopForm
             initialValues={record}
             onCancel={handleCancel}
             onFinish={handleUpdate}
@@ -272,7 +293,7 @@ const NganhNgheContainer = () => {
 
       {showModalDelete && (
         <Modal
-          title="Xóa ngành nghề"
+          title="Xóa lớp"
           onClose={() => {
             onCloseModalUpdate();
           }}
@@ -285,4 +306,4 @@ const NganhNgheContainer = () => {
   );
 };
 
-export default NganhNgheContainer;
+export default Lop;

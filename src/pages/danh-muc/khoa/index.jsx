@@ -68,6 +68,7 @@ const KhoaContainer = () => {
     });
 
     setShowModalUpdate(false);
+    fetchData();
   };
 
   const handleCreate = async (values) => {
@@ -82,6 +83,7 @@ const KhoaContainer = () => {
     });
 
     setShowModalCreate(false);
+    fetchData();
   };
 
   const handleDelete = async () => {
@@ -91,6 +93,7 @@ const KhoaContainer = () => {
     });
 
     setShowModalDelete(false);
+    fetchData();
   };
 
   const handleCancel = () => {

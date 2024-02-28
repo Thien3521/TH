@@ -30,6 +30,10 @@ const Layout = () => {
           path: "/khoa",
           name: "Khóa",
         },
+        {
+          path: "/lop",
+          name: "Lớp",
+        },
       ],
     },
   ];

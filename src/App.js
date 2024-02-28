@@ -12,6 +12,7 @@ import QuanTriThanhVien from "./pages/quan-tri-thanh-vien";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import KhoaContainer from "./pages/danh-muc/khoa";
+import Lop from "./pages/danh-muc/lop";
 function App() {
   return (
     <UserProvider>
@@ -24,6 +25,7 @@ function App() {
             <Route path="/danh-muc">
               <Route path="nganh-nghe" element={<NganhNghe />} />
               <Route path="khoa" element={<KhoaContainer />} />
+              <Route path="lop" element={<Lop />} />
             </Route>
             <Route path="/quan-tri-thanh-vien" element={<QuanTriThanhVien />} />
           </Route>
