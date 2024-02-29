@@ -36,6 +36,20 @@ const Layout = () => {
         },
       ],
     },
+    {
+      path: "/do-an",
+      name: "Đồ án",
+      child: [
+        {
+          path: "/quan-ly-dot",
+          name: "Quản lý đợt",
+        },
+        {
+          path: "/kho-de-tai",
+          name: "Kho đề tài",
+        },
+      ],
+    },
   ];
   return (
     <div className={`${styles.container}`}>
