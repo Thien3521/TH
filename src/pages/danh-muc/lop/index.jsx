@@ -74,12 +74,13 @@ const Lop = () => {
   };
 
   const handleUpdate = async (values) => {
-    const { name } = values;
+    const { name, course_id } = values;
     await apiLoggedInInstance({
       url: `/api/class/${record.id}`,
       method: "PUT",
       params: {
         name,
+        course_id,
       },
     });
     // console.log();
@@ -88,12 +89,13 @@ const Lop = () => {
   };
 
   const handleCreate = async (values) => {
-    const { name } = values;
+    const { name, course_id } = values;
     await apiLoggedInInstance({
       url: `/api/class`,
       method: "POST",
       params: {
         name,
+        course_id,
       },
     });
 
@@ -136,7 +138,11 @@ const Lop = () => {
               <div>
                 <Button
                   onClick={() => {
-                    setRecord(record);
+                    const course = courses.find(
+                      (item) => item.id === record.courseId
+                    );
+
+                    setRecord({ ...record, khoa: course?.id });
                     setShowModalUpdate(true);
                   }}
                   icon={<EditOutlined />}
