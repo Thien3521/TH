@@ -30,10 +30,8 @@ const LopForm = ({ onFinish, onCancel, initialValues }) => {
       form={form}
       layout="vertical"
       onFinish={(values) => {
-        const khoa = khoas.find((khoa) => khoa.name === values.khoa);
-        if (khoa) {
-          onFinish({ ...values, khoa_id: khoa.id });
-        }
+        const { name, khoa } = values;
+        onFinish({ name, course_id: khoa });
       }}
       initialValues={initialValues}
       className="p-5 pb-0"
@@ -56,7 +54,7 @@ const LopForm = ({ onFinish, onCancel, initialValues }) => {
         >
           <Select placeholder="Chọn khoá">
             {khoas.map((khoa) => (
-              <Option key={khoa.id} value={khoa.name}>
+              <Option key={khoa.id} value={khoa.id}>
                 {khoa.name}
               </Option>
             ))}
