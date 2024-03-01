@@ -10,6 +10,8 @@ import { Button } from "antd";
 import { apiLoggedInInstance } from "../../../utils/api";
 import { Tabs } from "antd";
 import TopicContainer from "./topic";
+import TopicForm from "./TopicForm";
+import Modal from "../../../components/Modal";
 
 const DeTaiContainer = () => {
   const [data, setData] = useState();
@@ -32,6 +34,26 @@ const DeTaiContainer = () => {
       console.error("Error fetching data:", error);
     }
   };
+
+  const onCloseModalCreate = () => {
+    setShowModalCreate(false);
+  };
+
+  const handleCreate = async (values) => {
+    await apiLoggedInInstance({
+      url: `/api/topic`,
+      method: "POST",
+      data: values,
+    });
+
+    setShowModalCreate(false);
+    fetchData();
+  };
+
+  const handleCancel = () => {
+    setShowModalCreate(false);
+  };
+
   return (
     <>
       <div className="w-full flex justify-between items-center py-3 px-10 shadow-md">
@@ -70,6 +92,22 @@ const DeTaiContainer = () => {
           ]}
         />
       </div>
+
+      {showModalCreate && (
+        <Modal
+          title="Thêm Đề Tài"
+          onClose={() => {
+            onCloseModalCreate();
+          }}
+        >
+          <hr />
+          <TopicForm
+            onCancel={handleCancel}
+            onFinish={handleCreate}
+            mode={"CREATE"}
+          />
+        </Modal>
+      )}
     </>
   );
 };
