@@ -11,11 +11,11 @@ import {
 import Modal from "../../../components/Modal";
 import FormDelete from "../../../components/FormDelete";
 import moment from "moment";
+import TopicForm from "./TopicForm";
 
 const TopicContainer = () => {
   const [data, setData] = useState();
   const [filteredData, setFilteredData] = useState();
-  const [showModalCreate, setShowModalCreate] = useState(false);
   const [showModalUpdate, setShowModalUpdate] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);
 
@@ -48,41 +48,18 @@ const TopicContainer = () => {
     setFilteredData(filtered);
   };
 
-  const onCloseModalCreate = () => {
-    setShowModalCreate(false);
-  };
-
   const onCloseModalUpdate = () => {
     setShowModalUpdate(false);
   };
 
   const handleUpdate = async (values) => {
-    const { name, year } = values;
     await apiLoggedInInstance({
-      url: `/api/course/${record.id}`,
+      url: `/api/topic/${record.id}`,
       method: "PUT",
-      params: {
-        name,
-        year: year.year(),
-      },
+      data: values,
     });
 
     setShowModalUpdate(false);
-    fetchData();
-  };
-
-  const handleCreate = async (values) => {
-    const { name, year } = values;
-    await apiLoggedInInstance({
-      url: `/api/course`,
-      method: "POST",
-      params: {
-        name,
-        year: year.year(),
-      },
-    });
-
-    setShowModalCreate(false);
     fetchData();
   };
 
@@ -98,7 +75,6 @@ const TopicContainer = () => {
 
   const handleCancel = () => {
     setShowModalUpdate(false);
-    setShowModalCreate(false);
     setShowModalDelete(false);
   };
 
@@ -248,37 +224,26 @@ const TopicContainer = () => {
   return (
     <>
       <Table dataSource={filteredData} columns={columns} />
-      {/* {showModalCreate && (
-        <Modal
-          title="Thêm Khóa"
-          onClose={() => {
-            onCloseModalCreate();
-          }}
-        >
-          <hr />
-          <KhoaForm onCancel={handleCancel} onFinish={handleCreate} />
-        </Modal>
-      )}
 
       {showModalUpdate && (
         <Modal
-          title="Chỉnh sửa khóa"
+          title="Thêm Đề Tài"
           onClose={() => {
             onCloseModalUpdate();
           }}
         >
           <hr />
-          <KhoaForm
-            initialValues={record}
+          <TopicForm
             onCancel={handleCancel}
             onFinish={handleUpdate}
+            initialValues={record}
           />
         </Modal>
-      )} */}
+      )}
 
       {showModalDelete && (
         <Modal
-          title="Xóa đề tài"
+          title="Sửa đề tài"
           onClose={() => {
             onCloseModalUpdate();
           }}
