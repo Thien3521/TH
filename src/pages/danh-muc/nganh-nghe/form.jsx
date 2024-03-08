@@ -19,7 +19,7 @@ const NganhNgheForm = ({ onFinish, onCancel, initialValues }) => {
       <div className="flex justify-between">
         <Form.Item
           label="Mã ngành nghề"
-          name="name"
+          name="code"
           rules={[
             { required: true, message: "Please input your course name!" },
           ]}

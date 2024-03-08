@@ -32,6 +32,7 @@ const NganhNgheContainer = () => {
         method: "GET",
       });
       setData(response.data);
+      // console.log(response.data);
       setFilteredData(response.data); // Set dữ liệu lọc mặc định khi lấy dữ liệu
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -57,12 +58,13 @@ const NganhNgheContainer = () => {
   };
 
   const handleUpdate = async (values) => {
-    const { name } = values;
+    const { name, code } = values;
     await apiLoggedInInstance({
       url: `/api/field/${record.id}`,
       method: "PUT",
       params: {
         name,
+        code,
       },
     });
 
@@ -71,12 +73,13 @@ const NganhNgheContainer = () => {
   };
 
   const handleCreate = async (values) => {
-    const { name } = values;
+    const { name, code } = values;
     await apiLoggedInInstance({
       url: `/api/field`,
       method: "POST",
       params: {
         name,
+        code,
       },
     });
 
@@ -143,21 +146,21 @@ const NganhNgheContainer = () => {
     },
     {
       title: "Mã ngành nghề",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "code",
+      key: "code",
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
         <div style={{ padding: 8 }}>
           <Input
-            placeholder="Search name"
+            placeholder="Search mã"
             value={selectedKeys[0]}
             onChange={(e) =>
               setSelectedKeys(e.target.value ? [e.target.value] : [])
             }
-            onPressEnter={() => handleSearch(selectedKeys[0], "name")}
+            onPressEnter={() => handleSearch(selectedKeys[0], "code")}
             style={{ width: 188, marginBottom: 8, display: "block" }}
           />
           <Button
-            onClick={() => handleSearch(selectedKeys[0], "name")}
+            onClick={() => handleSearch(selectedKeys[0], "code")}
             icon={<SearchOutlined />}
             size="small"
             style={{ width: 90, marginRight: 8 }}
@@ -167,7 +170,7 @@ const NganhNgheContainer = () => {
           <Button
             onClick={() => {
               setSelectedKeys([]);
-              handleSearch("", "name");
+              handleSearch("", "code");
             }}
             size="small"
             style={{ width: 90 }}
@@ -180,7 +183,7 @@ const NganhNgheContainer = () => {
         <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
       ),
       onFilter: (value, record) =>
-        record.name.toString().toLowerCase().includes(value.toLowerCase()),
+        record.code.toString().toLowerCase().includes(value.toLowerCase()),
     },
     {
       title: "Tên ngành nghề",
